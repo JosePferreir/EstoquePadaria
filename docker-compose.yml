@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: banco
+    image: postgres:16.2
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: padaria
+    ports:
+      - "5432:5432"
