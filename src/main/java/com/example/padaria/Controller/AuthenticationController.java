@@ -2,8 +2,10 @@ package com.example.padaria.Controller;
 
 import com.example.padaria.DTO.RequestDTO.AuthenticationDTO;
 import com.example.padaria.DTO.RequestDTO.UsuarioDTO;
+import com.example.padaria.DTO.Response.LoginResponseDTO;
 import com.example.padaria.Repository.UsuarioRepository;
 import com.example.padaria.model.Usuario;
+import com.example.padaria.security.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,8 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private TokenService TokenService;
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO data){
@@ -29,7 +33,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(),data.senha());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        var token = TokenService.generateToken((Usuario) auth.getPrincipal());
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/cadastrar")
