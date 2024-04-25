@@ -15,9 +15,17 @@ public class MateriaPrima {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "ativo", nullable = false)
     private boolean ativo;
+
+    @Column(name = "descricao", nullable = false)
     private String descricao;
+
+    @Column(name = "unidade_utilizada", nullable = false)
     private String unidadeUtilizada;
+
+    @Column(name = "unidade_comprada", nullable = false)
     private String unidadeComprada;
 
     public MateriaPrima(MateriaPrimaRequestDTO mp) {
@@ -26,5 +34,6 @@ public class MateriaPrima {
         this.unidadeUtilizada = mp.unidadeUtilizada();
         this.unidadeComprada = mp.unidadeComprada();
     }
+
 
 }
