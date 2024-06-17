@@ -1,6 +1,6 @@
 package com.example.padaria.model;
 
-import com.example.padaria.DTO.RequestDTO.MateriaPrimaRequestDTO;
+import com.example.padaria.DTO.RequestDTO.MateriaPrimaDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,12 +28,10 @@ public class MateriaPrima {
     @Column(name = "unidade_comprada", nullable = false)
     private String unidadeComprada;
 
-    public MateriaPrima(MateriaPrimaRequestDTO mp) {
+    public MateriaPrima(MateriaPrimaDTO mp) {
         this.ativo = mp.ativo();
         this.descricao = mp.descricao();
         this.unidadeUtilizada = mp.unidadeUtilizada();
         this.unidadeComprada = mp.unidadeComprada();
     }
-
-
 }

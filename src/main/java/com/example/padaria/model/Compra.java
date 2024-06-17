@@ -42,5 +42,9 @@ public class Compra {
         this.data = compraDTO.data();
     }
 
-    // getters and setters
+    public Compra(Float valorTotal, String tipoCompra, Date data) {
+        this.valorTotal = valorTotal;
+        this.tipoCompra = tipoCompra;
+        this.data = data;
+    }
 }
