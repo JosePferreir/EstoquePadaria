@@ -4,6 +4,7 @@ import com.example.padaria.DTO.RequestDTO.MateriaPrimaDTO;
 import com.example.padaria.DTO.Response.MateriaPrimaResponseDTO;
 import com.example.padaria.Repository.MateriaPrimaRepository;
 import com.example.padaria.model.MateriaPrima;
+import com.example.padaria.service.MateriaPrimaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,36 +17,29 @@ public class MateriaPrimaController {
     @Autowired
     private MateriaPrimaRepository materiaPrimaRepository;
 
+    @Autowired
+    private MateriaPrimaService materiaPrimaService;
+
 
     @PostMapping("/save")
     public void saveMateriaPrimar(@RequestBody MateriaPrimaDTO mp) {
-        System.out.println(new MateriaPrima(mp));
-        materiaPrimaRepository.save(new MateriaPrima(mp));
+        materiaPrimaService.saveMateriaPrima(mp);
     }
 
     @GetMapping("/all")
     public List<MateriaPrimaResponseDTO> getAll() {
-        List<MateriaPrimaResponseDTO> materiaPrima = materiaPrimaRepository.findAll().stream().map(MateriaPrimaResponseDTO::new).toList();
-        return materiaPrima;
+        return materiaPrimaService.getAll();
     }
     @PutMapping("/update/{id}")
     public void updateMateriaPrima(@RequestBody MateriaPrimaDTO mp, @PathVariable Long id) {
-        MateriaPrima materiaPrima = materiaPrimaRepository.findById(id).orElseThrow();
-        materiaPrima.setAtivo(mp.ativo());
-        materiaPrima.setDescricao(mp.descricao());
-        materiaPrima.setUnidadeUtilizada(mp.unidadeUtilizada());
-        materiaPrima.setUnidadeComprada(mp.unidadeComprada());
-        materiaPrimaRepository.save(materiaPrima);
+        materiaPrimaService.updateMateriaPrima(mp, id);
     }
     @PutMapping("/inactivate/{id}")
-    public void inactivateMateriaPrima(@PathVariable Long id) {
-        MateriaPrima materiaPrima = materiaPrimaRepository.findById(id).orElseThrow();
-        materiaPrima.setAtivo(false);
-        materiaPrimaRepository.save(materiaPrima);
+    public void inactivateActivateMateriaPrima(@PathVariable Long id) {
+        materiaPrimaService.inactivateActivateMateriaPrima(id);
     }
     @GetMapping("/all/ativos")
     public List<MateriaPrimaResponseDTO> getAllActive() {
-        List<MateriaPrimaResponseDTO> materiaPrima = materiaPrimaRepository.findAllByAtivoTrue().stream().map(MateriaPrimaResponseDTO::new).toList();
-        return materiaPrima;
+        return materiaPrimaService.getAllActive();
     }
 }
