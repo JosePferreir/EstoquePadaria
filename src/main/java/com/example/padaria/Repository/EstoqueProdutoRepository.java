@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface EstoqueProdutoRepository extends JpaRepository<EstoqueProduto, Long> {
-
+    EstoqueProduto findByProduto_IdAndIdCompra(Long idProduto, Long idCompra);
 }

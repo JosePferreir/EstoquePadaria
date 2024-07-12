@@ -1,6 +1,7 @@
 package com.example.padaria.model;
 
 import com.example.padaria.DTO.RequestDTO.EstoqueProdutoDTO;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,9 +25,6 @@ public class EstoqueProduto {
     @JoinColumn(name = "id_produto", nullable = false)
     private Produto produto;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_compra")
-    private Compra compra;
 
     @Column(name = "validade", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -38,6 +36,14 @@ public class EstoqueProduto {
     @Column(name = "data_criacao")
     private Date dataCriacao;
 
+    @Nullable
+    @Column(name = "valor")
+    private Float valor;
+
+    @Nullable
+    @Column(name = "id_compra")
+    private Long idCompra;
+
     public EstoqueProduto(EstoqueProdutoDTO ep) {
         this.id = ep.id();
         this.produto = new Produto(ep.produto());
@@ -45,7 +51,9 @@ public class EstoqueProduto {
         this.validade = ep.validade();
         this.quantidade = ep.quantidade();
         this.dataCriacao = ep.dataCriacao();
-
+        this.valor = ep.valor();
     }
+
+
 }
 

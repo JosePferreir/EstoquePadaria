@@ -17,8 +17,7 @@ public class EstoqueMpController {
 
     @Autowired
     private EstoqueMPRepository estoqueMPRepository;
-    @Autowired
-    private CompraService compraService;
+
     @Autowired
     private EstoqueMPService estoqueMPService;
 
@@ -34,5 +33,10 @@ public class EstoqueMpController {
     @PutMapping("/update/{id}")
     public void updateEstoqueMP(@RequestBody EstoqueMPDTO mp, @PathVariable Long id) {
         estoqueMPService.updateEstoqueMP(mp, id);
+    }
+
+    @GetMapping("codigo/{id}")
+    public EstoqueMPResponseDTO getEstoqueMP(@PathVariable Long id) {
+        return new EstoqueMPResponseDTO(estoqueMPRepository.findById(id).get());
     }
 }

@@ -6,16 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-
-@Embeddable
 @Getter
 @Setter
-public class CompraMateriaPrimaId implements Serializable {
+@Embeddable
+public class ProdutoCompraId implements Serializable {
 
     @Column(name = "id_compra")
-    private Long idCompra;
+    private Long compraId;
 
-    @Column(name = "id_mp")
-    private Long idMateriaPrima;
+    @Column(name = "id_produto")
+    private Long produtoId;
 
 }

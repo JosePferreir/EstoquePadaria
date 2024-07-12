@@ -27,5 +27,15 @@ public class EstoqueProdutoController {
         return estoqueProdutoService.getAll();
     }
 
+    @PutMapping("/update/{id}")
+    public void updateEstoqueProduto(@RequestBody EstoqueProdutoDTO estoqueProdutoDTO, @PathVariable Long id) {
+        estoqueProdutoService.updateEstoqueProduto(estoqueProdutoDTO, id);
+    }
+
+    @PostMapping("/save_compra")
+    public void saveCompraProduto(@RequestBody List<EstoqueProdutoDTO> estoqueList) {
+        estoqueProdutoService.saveCompraProduto(estoqueList);
+    }
+
 
 }

@@ -13,6 +13,6 @@ public record EstoqueProdutoResponseDTO(
 ) {
     public EstoqueProdutoResponseDTO(com.example.padaria.model.EstoqueProduto estoqueProduto) {
         this(estoqueProduto.getId(), new ProdutoResponseDTO(estoqueProduto.getProduto()), estoqueProduto.getValidade(),
-                estoqueProduto.getDataCriacao(), estoqueProduto.getQuantidade(), Optional.ofNullable(estoqueProduto.getCompra()).map(com.example.padaria.model.Compra::getId).orElse(null));
+                estoqueProduto.getDataCriacao(), estoqueProduto.getQuantidade(), estoqueProduto.getIdCompra());
     }
 }

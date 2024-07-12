@@ -8,6 +8,7 @@ public record EstoqueProdutoDTO(
         ProdutoDTO produto,
         Date validade,
         Long quantidade,
-        Date dataCriacao
+        Date dataCriacao,
+        Float valor
 ) {
 }

@@ -8,5 +8,6 @@ import java.util.List;
 public interface EstoqueMPRepository extends JpaRepository<EstoqueMP, Long> {
 
     List<EstoqueMP> findByMateriaPrima_Id(Long idMateriaPrima);
+    EstoqueMP findByMateriaPrima_IdAndIdCompra(Long idMateriaPrima, Long idCompra);
 
 }

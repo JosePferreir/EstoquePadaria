@@ -36,6 +36,9 @@ public class Compra {
     @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CompraMP> compraMateriaPrimaList;
 
+    @OneToMany(mappedBy = "compra", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ProdutoCompra> produtoCompraList;
+
     public Compra(CompraDTO compraDTO) {
         this.valorTotal = compraDTO.valorTotal();
         this.tipoCompra = compraDTO.tipoCompra();

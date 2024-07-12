@@ -36,4 +36,12 @@ public class Produto {
         this.unidadeUtilizada = p.unidadeUtilizada();
         this.ativo = p.ativo();
     }
+    public Produto(Long id, String nome, String unidadeUtilizada, boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.unidadeUtilizada = unidadeUtilizada;
+        this.ativo = ativo;
+    }
+
+
 }

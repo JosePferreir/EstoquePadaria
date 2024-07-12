@@ -6,6 +6,7 @@ import com.example.padaria.DTO.Response.EstoqueProdutoResponseDTO;
 import com.example.padaria.Repository.EstoqueMPRepository;
 import com.example.padaria.Repository.EstoqueProdutoRepository;
 import com.example.padaria.Repository.ProdutoMPRepository;
+import com.example.padaria.Repository.ProdutoRepository;
 import com.example.padaria.exception.MateriaPrimaExpiredException;
 import com.example.padaria.exception.MateriaPrimaInsufficientException;
 import com.example.padaria.exception.MateriaPrimaNotFoundException;
@@ -32,6 +33,10 @@ public class EstoqueProdutoService {
     private ProdutoMPRepository produtoMPRepository;
     @Autowired
     private EstoqueMPRepository estoqueMPRepository;
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    @Autowired
+    private CompraService compraService;
 
     @Transactional
     public ResponseEntity<?> saveEstoqueProduto(EstoqueProdutoDTO ep) {
@@ -103,5 +108,25 @@ public class EstoqueProdutoService {
 
     public List<EstoqueProdutoResponseDTO> getAll() {
         return estoqueProdutoRepository.findAll().stream().map(EstoqueProdutoResponseDTO::new).toList();
+    }
+
+    public void updateEstoqueProduto(EstoqueProdutoDTO ep, Long id) {
+        EstoqueProduto estoqueProduto = estoqueProdutoRepository.findById(id).orElseThrow();
+        estoqueProduto.setProduto(produtoRepository.findById(ep.produto().id()).orElseThrow());
+        estoqueProduto.setValidade(ep.validade());
+        estoqueProduto.setDataCriacao(ep.dataCriacao());
+        estoqueProduto.setQuantidade(ep.quantidade());
+        estoqueProdutoRepository.save(estoqueProduto);
+    }
+
+    @Transactional
+    public void saveCompraProduto(List<EstoqueProdutoDTO> estoqueList) {
+
+        Long compra_id = compraService.saveCompraProduto(estoqueList);
+        for(EstoqueProdutoDTO item : estoqueList) {
+            EstoqueProduto estoque = new EstoqueProduto(item);
+            estoque.setIdCompra(compra_id);
+            estoqueProdutoRepository.save(estoque);
+        }
     }
 }
