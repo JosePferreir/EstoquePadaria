@@ -25,7 +25,6 @@ public class CompraController {
     }
     @GetMapping("/all")
     public List<CompraResponseDTO> getAll() {
-        System.out.println(compraService.getAll());
         return compraService.getAll();
     }
     @GetMapping("/produto/detalhes/{id}")
